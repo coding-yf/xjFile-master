@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./components.css" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="parent1"><h2>DragAvatar组件</h2></div>
+    <div id="parent2"><h2>FileSelect组件</h2></div>
+    <script src="./utils/minix.js"></script>
+    <script src="./components/DragAvatar.js"></script>
+    <script src="./components/FileSelect.js"></script>
+    <script>
+      new DragAvatar({
+        el: "#parent1", //将dragAvatar实例挂在页面中某元素上
+        clsName: "drop-box", //DragAvatar组件内部：<div class="drop-box"></div>
+        // clsName: "drop-zone",
+      });
+      new FileSelect({
+        el: "#parent2",
+        clsName: "file-select",
+      });
+    </script>
+  </body>
+</html>

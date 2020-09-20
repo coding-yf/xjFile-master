@@ -1,0 +1,50 @@
+/*
+    文件选择组件FileSelect组件：点击选择文件、将所选文件名称呈现到下面的文件列表中（允许删除）
+    用户决定：el(将实例挂到页面某元素上)、clsName(自定义按钮样式)、accept(允许选择的文件格式)
+*/
+
+//1.html
+<input type="file" id="fileElem" multiple accept="image/*" style="display: none" onclick="handleFiles(this.files)">
+<button id="fileSelect">选择文件</button>
+<div id="fileList">
+    <ul>
+        <li><span>文件名称</span><button>删除</button><li>
+        <li></li>
+    <ul>
+</div>
+
+//2.点击选择文件
+window.URL = window.URL || window.webkitURL;
+const fileElem = document.getElementById("fileElem");
+const fileSelect = document.getElementById("fileSelect");
+fileSelect.addEventListener("click", function(e){
+    if(fileElem){
+        fileElem.click();
+    }
+    e.preventDefault(); 
+}, false)
+
+
+//3.文件列表（允许删除）—— 动态列表
+const fileList = document.getElementById("fileList");
+function handleFiles(files){
+    if(!files.length){
+        fileList.innerHTML = "<p>No files seleted!</p>";
+    }else{
+        fileList.innerHTML = "";
+        //先创建ul标签，然后创建li，每一个li中包含a和button。a的src即为文件对应的url对象，button为删除按钮
+        var list = document.createElement("ul");
+        fileList.appendChild(list);
+        for(var i=0; i<files.length; i++){
+            var li = document.createElement("li");
+            list.appendChild(li);
+            var fileUrl = document.createElement("a");
+            li.appendChild(fileUrl);
+            var deleteBtn = document.createElement("button");
+            li.appendChild(info);
+            deleteBtn.onclick = function(){
+                //删除files当中的某项
+            }
+        }
+    }
+}

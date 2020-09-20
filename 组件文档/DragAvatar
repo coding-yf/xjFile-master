@@ -1,0 +1,49 @@
+/*
+    已完成！
+    头像组件DragAvatar：拖拽选择、显示缩略图(预览)
+    用户决定：el(将实例挂到页面某元素上)、clsName(自定义拖拽容器的样式)、accept(允许选择的文件格式)
+*/
+
+
+//1.html
+<div id="dropbox">+</div>   //此dropbox的样式！
+
+//2.拖拽选择
+var dragenter = function (e) {
+    e.stopPropagation();
+    e.preventDefault();
+};
+var dragover = function (e) {
+    e.stopPropagation();
+    e.preventDefault();
+};
+var drop = (e) => {
+    e.stopPropagation();
+    e.preventDefault();
+    //从事件对象中获取到dataTransfer这个域，然后从中得到列表，再将其传递给handleFiles函数
+    var dt = e.dataTransfer;
+    var files = dt.files;
+    //调用显示缩略图函数
+    this.preview(files[0]);
+};
+dropbox.addEventListener("dragenter", dragenter, false);
+dropbox.addEventListener("dragover", dragover, false);
+dropbox.addEventListener("drop", drop, false);
+
+//3.显示缩略图(预览)
+function preview(file){
+    var img = document.createElement("img");
+    img.className = "avatar";
+    dropbox.appendChild(img);
+
+    //使用FileReader()来生成临时URL对象
+    var reader = new FileReader();
+    reader.onload = (function (imgElem) {
+      //当读取完成时(即当整个图片文件的内容完全加载完后)
+      return function (e) {
+        //本质上就是将我们创建的img标签，加上src属性，使其引用代表图片的临时URL
+        imgElem.src = e.target.result;
+      };
+    })(img);
+    reader.readAsDataURL(file); //使用reader读取file(是异步的，在后台进行的)，并且将图片转为一个临时可用的URL(上面result当中存的就是该URL)
+}
